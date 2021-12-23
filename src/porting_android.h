@@ -101,4 +101,9 @@ std::string getInputDialogValue();
  * makes game better
  */
 	void upgrade(const std::string &item);
+
+/**
+ * convert regular UTF-8 to Java modified UTF-8
+ */
+	jstring	getJniString(const std::string &message);
 }
