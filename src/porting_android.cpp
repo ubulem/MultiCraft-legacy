@@ -388,7 +388,7 @@ void upgrade(const std::string &item)
 jstring	getJniString(const std::string &message)
 {
 	int byteCount = message.length();
-	auto pNativeMessage = reinterpret_cast<const jbyte*>(message.c_str());
+	auto pNativeMessage = (const jbyte*)(message.c_str());
 	jbyteArray bytes = jnienv->NewByteArray(byteCount);
 	jnienv->SetByteArrayRegion(bytes, 0, byteCount, pNativeMessage);
 
@@ -404,8 +404,7 @@ jstring	getJniString(const std::string &message)
 	jmethodID ctor = jnienv->GetMethodID(
 			stringClass, "<init>", "([BLjava/nio/charset/Charset;)V");
 
-	auto jMessage = reinterpret_cast<jstring>(
-			jnienv->NewObject(stringClass, ctor, bytes, charset));
+	auto jMessage = (jstring)(jnienv->NewObject(stringClass, ctor, bytes, charset));
 
 	return jMessage;
 }
