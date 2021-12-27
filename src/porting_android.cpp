@@ -388,7 +388,7 @@ void upgrade(const std::string &item)
 jstring	getJniString(const std::string &message)
 {
 	int byteCount = message.length();
-	auto pNativeMessage = (const jbyte*)(message.c_str());
+	const jbyte *pNativeMessage = (const jbyte*) message.c_str();
 	jbyteArray bytes = jnienv->NewByteArray(byteCount);
 	jnienv->SetByteArrayRegion(bytes, 0, byteCount, pNativeMessage);
 
@@ -398,13 +398,11 @@ jstring	getJniString(const std::string &message)
 	jstring utf8 = jnienv->NewStringUTF("UTF-8");
 	jobject charset = jnienv->CallStaticObjectMethod(charsetClass, forName, utf8);
 
-	// find a String constructor that takes a Charset:
-	//   javap -s java.lang.String | egrep -A2 "String\(.*charset"
 	jclass stringClass = jnienv->FindClass("java/lang/String");
 	jmethodID ctor = jnienv->GetMethodID(
 			stringClass, "<init>", "([BLjava/nio/charset/Charset;)V");
 
-	auto jMessage = (jstring)(jnienv->NewObject(stringClass, ctor, bytes, charset));
+	jstring jMessage = (jstring) jnienv->NewObject(stringClass, ctor, bytes, charset);
 
 	return jMessage;
 }

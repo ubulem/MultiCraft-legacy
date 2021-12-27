@@ -92,9 +92,9 @@ std::string getInputDialogValue();
  */
 	void finishGame(const std::string &exc);
 
-	/**
-	 * call Android function to handle not-critical error
-	 */
+/**
+ * call Android function to handle not-critical error
+ */
 	void handleError(const std::string &errType, const std::string &err);
 
 /**
@@ -105,5 +105,5 @@ std::string getInputDialogValue();
 /**
  * convert regular UTF-8 to Java modified UTF-8
  */
-	jstring	getJniString(const std::string &message);
+	jstring getJniString(const std::string &message);
 }
